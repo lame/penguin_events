@@ -9,12 +9,16 @@ also a Vehicle can have a Location that would be updated
 every time the Vehicle phones home or is polled
 """
 class Location(Base):
+    """
+    TODO: Fill in the doc string
+    """
     __tablename__ = 'locations'
 
     id = Column(Integer, primary_key=True)
     lat = Column(Float, nullable=False)
     long = Column(Float, nullable=False)
 
+    # Need to add relationship reference to 1 vehicle with Many (3) locations
     vehicle_id = Column(Integer, ForeignKey('vehicles.id'))
 
     def __repr__(self):
