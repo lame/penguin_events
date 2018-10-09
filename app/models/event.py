@@ -1,4 +1,3 @@
-import enum
 from sqlalchemy import Column, ForeignKey, Integer, Enum
 from sqlalchemy.orm import relationship, backref
 
@@ -7,6 +6,9 @@ from .common import EventType
 
 
 class Event(Base):
+    """
+    # TODO: Fill in the class docstring
+    """
     __tablename__ = 'events'
 
     id = Column(Integer, primary_key=True)
@@ -19,15 +21,15 @@ class Event(Base):
 
     # Vehicle, 1:M with backref
     #   Every vehicle has many events
-    #   Every event has one vehicle
+    #   Every event belongs to a vehicle
     vehicle_id = Column(Integer, ForeignKey('vehicles.id'))
     vehicle = relationship("Vehicle")
 
-    # Vehicle, 1:M with backref
-    #   Every user has many events
-    #   Every event has one user
-    user_id = Column(Integer, ForeignKey('users.id'))
-    user = relationship("User")
+    # Ride, 1:M with backref
+    #   Every ride has 2 events
+    #   Every event belongs to a ride
+    ride_id = Column(Integer, ForeignKey('rides.id'))
+    ride = relationship("Ride")
 
     def __repr__(self):
         return f'{self.type.name} Event\nID: {self.id}\nVehicle: {self.vehicle_id}'

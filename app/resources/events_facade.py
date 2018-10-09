@@ -1,4 +1,3 @@
-from datetime import timedelta
 from sqlalchemy.orm.session import Session
 
 from app.models.common import EventType, DBOperations
@@ -6,6 +5,7 @@ from app.models.event import Event
 from app.models.location import Location
 from app.models.vehicle import Vehicle
 from app.models.user import User
+from app.models.ride import Ride
 
 
 class EventsFacade(object):
@@ -27,6 +27,7 @@ class EventsFacade(object):
         vehicle  (:obj: Vehicle)        The Vehicle object with id, vehicle_location, etc.
         event    (:obj: Event)          The Event object that has a user, a vehicle, timestamp, etc.
         user     (:obj: User)           The User object with id, many events
+        ride     (:obj: Ride)           The Ride object that contains a user and 2 events, plus the cost of rides and such
 
     """
 
@@ -41,12 +42,15 @@ class EventsFacade(object):
                  ):
 
         # Format input vars
-        self._timestamp = timedelta(seconds=int(timestamp))
+        self._timestamp = int(timestamp)
         self._event_type = EventType[event_type]
         self._lat = float(lat)
         self._long = float(long)
         self._user_id = (None if user_id == 'NULL' else int(user_id))
         self._session = session
+
+        # Set User
+        self.user = DBOperations.find_or_initialize_by(self._session, User, **{'id': self._user_id})
 
         # Set Location
         self.location = Location(lat=self._lat, long=self._long)
@@ -60,20 +64,27 @@ class EventsFacade(object):
             type=self._event_type,
             timestamp=self._timestamp,
             location=self.location,
-            vehicle=self.vehicle
+            vehicle=self.vehicle,
         )
 
-        # Set User
-        self.user = DBOperations.find_or_initialize_by(self._session, User, **{'id': self._user_id})
-        self.user.events.append(self.event)
+        # Set Ride
+        self.ride = None
+        if self.event.type is EventType.START_RIDE:
+            self.ride = Ride(self.user, self.vehicle, self.event)
+        elif self.event.type is EventType.END_RIDE:
+            self.ride = self.user.rides[-1]
+            self.ride.end_ride(self.event)
 
     def create(self):
         """ Persist location, vehicle, event, and user instances to database
-
         :return: EventsFacade instsance
         """
+        to_commit = [self.location, self.vehicle, self.event, self.user]
+        if self.ride:
+            to_commit.append(self.ride)
+
         DBOperations.session_add_and_commit(
             self._session,
-            [self.location, self.vehicle, self.event, self.user]
+            to_commit
         )
         return self
