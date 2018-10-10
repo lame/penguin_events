@@ -32,6 +32,5 @@ class BirdEvents(object):
                         user_id = row[5],
                         session = self._session
                     ).create()
-        # FIXME: Get correct exception
         except Exception:
             raise ValueError('infile expected to be comma separated values')

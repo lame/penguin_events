@@ -5,6 +5,11 @@ from .. import Base
 
 
 class User(Base):
+    """ The user class holds the user attributes (presumably name, an FK to addresses, FK to payment info, etc)
+    and a list of all the user's rides. The last ride (self.rides[-1] is always either the current in-progress ride or
+    the most recently completed ride.
+
+    """
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)

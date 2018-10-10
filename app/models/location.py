@@ -1,5 +1,5 @@
 from geopy.distance import geodesic
-from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy import Column, Integer, Float
 
 from .. import Base
 

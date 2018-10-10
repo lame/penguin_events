@@ -13,9 +13,12 @@ class Ride(Base):
     TODO: Finish docstring
 
     Properties:
-        duration        (int):      Integer representation of the ride duration in seconds.
-        is_free_ride    (bool):     Boolean value of if the ride should be charged to the user
-        ride_minutes    (int):      The ceiling whole number of the ride minutes
+        duration        (int):              Integer representation of the ride duration in seconds.
+        is_free_ride    (bool):             Boolean value of if the ride should be charged to the user
+        ride_minutes    (int):              The ceiling whole number of the ride minutes
+        cost            (int):              The total cost to the user for the ride (start event and end event pair)
+        start_location  (:obj: Location):   The location object of the START_RIDE event
+        end_location    (:obj: Location):   the location object of the END_RIDE event
 
     """
     __tablename__ = 'rides'
@@ -35,8 +38,8 @@ class Ride(Base):
         self.events.append(end_event)
 
     def distance(self):
-        start = (self.start_location.lat, self.start_location.long)
-        end = (self.end_location.lat, self.end_location.long)
+        start = Location(self.start_location.lat, self.start_location.long)
+        end = Location(self.end_location.lat, self.end_location.long)
         if start and end:
             return Location.get_distance(start, end)
         else:

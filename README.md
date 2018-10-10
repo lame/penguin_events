@@ -1,7 +1,9 @@
 # Bird Engineering: Coding Exercise
 [Programming Exercise Write-up](docs/programming_exercise_writeup.md)
 
-[Getting Started](docs/getting_started.md)
+## Getting Started:
+
+[Running the Program and Running Tests](docs/running_program.md)
 
 ## Bird Events:
 

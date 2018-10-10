@@ -10,18 +10,15 @@ class Vehicle(Base):
     """ The Vehicle class exists to store vehicle data. Properties are available for computed fields such as
     the total distance that a vehicle has covered.
 
-    Args:
-        id (str): The vehicle ID string, should be unique to the vehicle
-
     Attributes:
-        id          (str):              The ID of the vehicle
-        events      (:obj: [Event]):    A list of all the events the vehicle has had
-        locations   (:obj: [Location]): A list of all the locations a vehicle has been
+        id                 (str):              The ID of the vehicle
+        total_distance     (int):              The total distance that the vehicle has covered, in meters
+        events             (:obj: [Event]):    A list of all the events the vehicle has had
+        drop_location      (:obj: Location):   A Location object of the drop location of the vehicle
+        current_location   (:obj: Location):   A Location object of the vehicle's current location
 
     Properties:
-        drop_location   (:obj: Location): Location object of the instance's first drop event of the simulation
-        start_location  (:obj: Location): Location object of the instance's most recent start location
-        end_location    (:obj: Location): Location object of the instance's most recent end location, if a new start event has not yet begun
+        distance_from_drop  (float): The float distance in meters of the vehicle's current location from the drop location
     """
 
     __tablename__ = 'vehicles'
