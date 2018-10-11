@@ -1,12 +1,12 @@
 import argparse
 
 from app import session_factory
-from app.resources.bird_events import BirdEvents
+from app.resources.penguin_events import PenguinEvents
 from app.models.vehicle import Vehicle
 from app.models.user import User
 
 def main():
-    parser = argparse.ArgumentParser(description='Process Bird Vehicle Events')
+    parser = argparse.ArgumentParser(description='Process Penguin Vehicle Events')
     parser.add_argument('in_file', type=str, help='Input file of comma separated events')
     args = parser.parse_args()
 
@@ -18,7 +18,7 @@ def main():
         # Possible refactor: create a wrapper for main() so session will be created and closed implicitly
         session = session_factory()
 
-        BirdEvents(args.in_file, session).read_file()
+        PenguinEvents(args.in_file, session).read_file()
         response += vehicle_drop_count(session)
         response += farthest_from_drop_location(session)
         response += longest_vehicle_distance(session)
@@ -29,7 +29,7 @@ def main():
 
 def vehicle_drop_count(session):
     count = Vehicle.vehicles_count(session)
-    return f'\nNumber of Bird Vehicles Dropped in Simulation: {count}'
+    return f'\nNumber of Penguin Vehicles Dropped in Simulation: {count}'
 
 def farthest_from_drop_location(session):
     # Please note that distance measures are in meters and have decimals truncated for clarity

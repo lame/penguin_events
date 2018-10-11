@@ -15,7 +15,7 @@ class EventsFacade(object):
 
     Args:
         timestamp   (int):              The time, in seconds, from the beginning of the events stream
-        vehicle_id: (str):              String Id of the bird vehicle (scooter... for now!)
+        vehicle_id: (str):              String Id of the penguin vehicle (scooter... for now!)
         event_type: (str):              Events include 'DROP', 'START_RIDE' and 'END_RIDE'
         lat:        (float):            Latitude of the current location, between [-90.0, +90.0]
         long:       (float):            Longitude of the current location, between [-180.0, +180.0]

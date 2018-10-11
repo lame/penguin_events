@@ -3,14 +3,14 @@ import csv
 from .events_facade import EventsFacade
 
 
-class BirdEvents(object):
+class PenguinEvents(object):
     """ This class will take care of how our information is ingested by the program.
     In this version there is only a read_file method, however with the EventsFacade
     class, it can easily be altered to accept an input stream like pub/sub, and can
     also be made Async to keep response times quick
 
     Args:
-        in_file (str):              The file to use for bird events data
+        in_file (str):              The file to use for penguin events data
         session (:obj: Session):    SQLAlchemy database session object
     """
 
