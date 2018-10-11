@@ -1,5 +1,5 @@
 
-Thank you for your continued interest in Bird!
+Thank you for your continued interest in Penguin!
 
 This at-home coding challenge is an opportunity for you to write some clean code that shows us how you use data structures to solve simple algorithmic problems.
 
