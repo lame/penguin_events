@@ -12,7 +12,7 @@ The input to your program is a text file containing a list of Penguin events fro
 | Data        | Type           | Description  |
 | ------------- |-------------| -----|
 | timestamp       | Integer        | The time in seconds since the start of the simulation |
-| bird_id       | String        | The id of the associated Penguin vehicle, e.g. JK5T |
+| penguin_id       | String        | The id of the associated Penguin vehicle, e.g. JK5T |
 | event_type       | String        | The type of the event is one of START_RIDE, END_RIDE, DROP |
 | x       | Double        | The x coordinate of the location of where the event happened in the simulation |
 | y       | Double        | The y coordinate of the location of where the event happened in the simulation |
